@@ -32,8 +32,19 @@
                   </div>
                   <!-- Navbar Right Side -->
                   <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="#">Login</a>
-                    <a class="nav-item nav-link" href="#">Register</a>
+                    {% if user.is_authenticated %}
+                      <form action="{% url 'logout' %} " method="post">
+                      {% csrf_token %}
+                        <div>
+                          <span class="text-white mr-3">Welcome, {{ user.username | title }}</span>
+                          <input class="pe-auto" type="submit" value="Log Out" />
+                        </div> 
+                      </form>
+                    {% else %}
+                      <a class="nav-item nav-link" href="{% url "login" %}">Login</a>
+                      <a class="nav-item nav-link" href="#">Register</a>
+                    {% endif %}
+                    
                   </div>
                 </div>
               </div>
